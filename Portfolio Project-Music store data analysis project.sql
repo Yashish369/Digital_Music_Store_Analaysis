@@ -1,10 +1,27 @@
 create database music_db;
+
 use music_db;
 
-select * from artist;
+create table employee (
+employee_id int,
+last_name varchar (30),
+first_name varchar (30),
+title varchar (100),
+reports_to int,
+levels varchar (100),
+birthdate date,
+hire_date date,
+address varchar (100),
+city varchar (100),
+state varchar (100),
+country varchar (20),
+postal_code varchar (10),
+phone varchar (100),
+fax varchar (30),
+email varchar (30));
 
 load data infile
-'C:\Users\aatma\Desktop\music store data\music store data'
+'C:\Users\aatma\Desktop\music store data\music store data\employee.csv'
 into table employee
 fields terminated by ','
 enclosed by '"'
@@ -12,7 +29,161 @@ lines terminated by '\n'
 ignore 1 rows;
 
 
---EASY--
+create table album2 (
+album_id int not null,
+title varchar (100),
+artist_id int not null);
+
+load data infile
+'C:\Users\aatma\Desktop\music store data\music store data\album2.csv'
+into table album2
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+
+create table artist (
+artist_id int not null,
+name varchar (100));
+
+load data infile
+'C:\Users\aatma\Desktop\music store data\music store data\artist.csv'
+into table artist
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+Create table customer (
+customer_id int not null,
+first_name varchar (30),
+last_name varchar (30),
+company varchar (20),
+address varchar (100),
+city varchar (20),
+state varchar (20),
+country varchar (20),
+postal_code varchar (10),
+phone varchar (15),
+fax varchar (20),
+email varchar (20),
+support_rep_id int not null);
+
+load data infile
+'C:\Users\aatma\Desktop\music store data\music store data\customer.csv'
+into table customer
+fields terminted by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows
+
+create table genre (
+genre_id int not null,
+name varchar (20));
+
+load data infile
+'C:\Users\aatma\Desktop\music store data\music store data\genre.csv'	
+into table genre
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+create table invoice (
+invoice_id int not null,
+customer_id int not null,
+invoice_date date,
+billing_address varchar (100),
+billing_city varchar (30),
+billing_state varchar (20),
+billing_country varchar (20),
+billing_postal_code varchar (20),
+total int);
+
+load data infile
+'C:\Users\aatma\Desktop\music store data\music store data\invoice.csv'
+into table invoice
+fields terminated by ','
+enclosed  by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+
+create table invoice_line (
+invoice_line_id int not null,
+invoice_id int not null,
+track_id int not null,
+unit_price int,
+quantity int);
+
+load data infile
+'C:\Users\aatma\Desktop\music store data\music store data\invoice_line.csv'	
+into table invoice_line
+fields terminted by ','
+enclosed by '"'
+lines termianted by '\n'
+ignore 1 rows;
+
+
+create table media_type (
+media_type_id int,
+name varchar (30);
+
+load data infile
+'C:\Users\aatma\Desktop\music store data\music store data\media_type.csv'
+into table media_type
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+create table playlist (
+playlist_id int not null,
+name varchar (50);
+
+load data infile
+'C:\Users\aatma\Desktop\music store data\music store data\playlist.csv'
+into table playlist
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows
+
+create table playlist_track (
+playlist_id int not null,
+track_id int not null;
+
+load data infile
+'C:\Users\aatma\Desktop\music store data\music store data\playlist_track.csv'
+into table playlist_track
+fields terminated by ','
+enclosed by '"'
+lines termiante by '\n'
+ignore 1 rows
+
+create table track (
+track_id int not null,
+name varchar (30),
+album_id int not null,
+media_type_id int not null,
+genre_id int not null,
+composer varchar (50),
+milliseconds int,
+bytes int,
+unit_price int);
+
+load data infile
+'C:\Users\aatma\Desktop\music store data\music store data\track.csv'	
+into table track
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+	
+	
+
+
 Q1. Who is senior most employee based on Job title ?;
 select * from employee
 order by levels desc
@@ -45,7 +216,8 @@ group by customer.customer_id order by total desc limit 1;
 SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 
 
---Moderate--
+
+
 Q1. Write a query to return email, fist name, last name & Genre of all Rock Music Listeners. Return your list ordered alphabetically
 by email starting with A;
 
